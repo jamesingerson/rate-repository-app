@@ -23,6 +23,13 @@ const theme = {
     normal: "400",
     bold: "700",
   },
+  text: {
+    color: "#FFFFFF",
+    fontWeight: "700",
+    fontSize: 16,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+  },
 };
 
 export default theme;
