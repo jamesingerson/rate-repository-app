@@ -46,16 +46,7 @@ const CredentialForm = ({ onSubmit }) => {
   );
 };
 
-const SignInForm = () => {
-  const onSubmit = (values) => {
-    const username = values.username;
-    const password = values.password;
-
-    console.log(
-      `User tried to sign in with credentials: ${username + " " + password}`
-    );
-  };
-
+const SignInForm = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={initialValues}
