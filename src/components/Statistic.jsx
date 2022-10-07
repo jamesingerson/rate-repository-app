@@ -1,5 +1,6 @@
 import Text from "./Text";
 import { StyleSheet, View } from "react-native";
+import abbreviateValue from "../utils/abbreviateValue";
 
 const styles = StyleSheet.create({
   container: {
@@ -8,10 +9,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-const abbreviateValue = (value) => {
-  return value >= 1000 ? (value / 1000).toFixed(1) + "k" : value;
-};
 
 const Statistic = ({ label, value }) => {
   return (
