@@ -30,6 +30,16 @@ const theme = {
     paddingVertical: 15,
     paddingHorizontal: 10,
   },
+  button: {
+    color: "white",
+    backgroundColor: "#0366d6",
+    borderRadius: 5,
+    paddingVertical: 15,
+    margin: 10,
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 14,
+  },
 };
 
 export default theme;

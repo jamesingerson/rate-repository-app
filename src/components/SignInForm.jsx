@@ -6,16 +6,6 @@ import theme from "../theme";
 import * as yup from "yup";
 
 const styles = StyleSheet.create({
-  button: {
-    color: "white",
-    backgroundColor: theme.colors.primary,
-    borderRadius: 5,
-    paddingVertical: 15,
-    margin: 10,
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 14,
-  },
   languages: {
     flexDirection: "row",
   },
@@ -40,7 +30,7 @@ const CredentialForm = ({ onSubmit }) => {
       <FormikTextInput name="username" placeholder="Username" />
       <FormikTextInput name="password" placeholder="Password" secureTextEntry />
       <Pressable onPress={onSubmit}>
-        <Text style={styles.button}>Sign In</Text>
+        <Text style={theme.button}>Sign In</Text>
       </Pressable>
     </View>
   );
