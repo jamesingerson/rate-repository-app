@@ -32,7 +32,12 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab label={"Repositories"} link={"/"} />
-        {!me && <AppBarTab label={"Sign in"} link={"/signin"} />}
+        {!me && (
+          <>
+            <AppBarTab label={"Sign in"} link={"/signin"} />
+            <AppBarTab label={"Sign Up"} link={"/signup"} />
+          </>
+        )}
         {!!me && (
           <>
             <AppBarTab label={"Create a Review"} link={"/create-review"} />
