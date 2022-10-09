@@ -48,6 +48,20 @@ export const GET_REPOSITORY = gql`
       language
       createdAt
       url
+      reviews {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
 `;

@@ -40,6 +40,9 @@ const theme = {
     fontWeight: "700",
     fontSize: 14,
   },
+  separator: {
+    height: 10,
+  },
 };
 
 export default theme;
