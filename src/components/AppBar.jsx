@@ -5,6 +5,7 @@ import AppBarTab from "./AppBarTab";
 import useMe from "../hooks/useMe";
 import useAuthStorage from "../hooks/useAuthStorage";
 import { useApolloClient } from "@apollo/client";
+import { useNavigate } from "react-router-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -16,12 +17,15 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   const { me } = useMe();
+  let navigate = useNavigate();
+
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
 
   const signOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
+    navigate("/");
   };
 
   return (
@@ -30,9 +34,12 @@ const AppBar = () => {
         <AppBarTab label={"Repositories"} link={"/"} />
         {!me && <AppBarTab label={"Sign in"} link={"/signin"} />}
         {!!me && (
-          <Pressable onPress={signOut}>
-            <Text style={theme.text}>Sign out</Text>
-          </Pressable>
+          <>
+            <AppBarTab label={"Create a Review"} link={"/create-review"} />
+            <Pressable onPress={signOut}>
+              <Text style={theme.text}>Sign out</Text>
+            </Pressable>
+          </>
         )}
       </ScrollView>
     </View>

@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   textContainer: {
+    flexGrow: 1,
+    flex: 1,
     marginRight: 80,
   },
 });
