@@ -23,20 +23,36 @@ import { GET_REPOSITORIES } from "../graphql/queries";
 //   return { repositories, loading, refetch: fetchRepositories };
 // };
 
-const useRepositories = (selectedSort) => {
+const useRepositories = (selectedSort, debouncedSearch) => {
   let sortParams;
   switch (selectedSort) {
     case "latest":
-      sortParams = { orderBy: "CREATED_AT", orderDirection: "DESC" };
+      sortParams = {
+        orderBy: "CREATED_AT",
+        orderDirection: "DESC",
+        searchKeyword: debouncedSearch,
+      };
       break;
     case "highest":
-      sortParams = { orderBy: "RATING_AVERAGE", orderDirection: "DESC" };
+      sortParams = {
+        orderBy: "RATING_AVERAGE",
+        orderDirection: "DESC",
+        searchKeyword: debouncedSearch,
+      };
       break;
     case "lowest":
-      sortParams = { orderBy: "RATING_AVERAGE", orderDirection: "ASC" };
+      sortParams = {
+        orderBy: "RATING_AVERAGE",
+        orderDirection: "ASC",
+        searchKeyword: debouncedSearch,
+      };
       break;
     default:
-      sortParams = { orderBy: "CREATED_AT", orderDirection: "DESC" };
+      sortParams = {
+        orderBy: "CREATED_AT",
+        orderDirection: "DESC",
+        searchKeyword: debouncedSearch,
+      };
       break;
   }
 
