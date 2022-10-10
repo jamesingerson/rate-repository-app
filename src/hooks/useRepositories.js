@@ -23,9 +23,26 @@ import { GET_REPOSITORIES } from "../graphql/queries";
 //   return { repositories, loading, refetch: fetchRepositories };
 // };
 
-const useRepositories = () => {
+const useRepositories = (selectedSort) => {
+  let sortParams;
+  switch (selectedSort) {
+    case "latest":
+      sortParams = { orderBy: "CREATED_AT", orderDirection: "DESC" };
+      break;
+    case "highest":
+      sortParams = { orderBy: "RATING_AVERAGE", orderDirection: "DESC" };
+      break;
+    case "lowest":
+      sortParams = { orderBy: "RATING_AVERAGE", orderDirection: "ASC" };
+      break;
+    default:
+      sortParams = { orderBy: "CREATED_AT", orderDirection: "DESC" };
+      break;
+  }
+
   const { data, error, loading } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: "cache-and-network",
+    variables: sortParams,
   });
   console.log(data);
   const repositories = data?.repositories;

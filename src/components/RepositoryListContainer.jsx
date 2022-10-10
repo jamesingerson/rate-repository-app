@@ -2,6 +2,8 @@ import { FlatList, View, StyleSheet, Pressable } from "react-native";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
 import { useNavigate } from "react-router-native";
+import { Picker } from "@react-native-picker/picker";
+import { useState } from "react";
 
 const styles = StyleSheet.create({
   separator: {
@@ -11,7 +13,24 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories }) => {
+const RepositorySorter = ({ selectedSort, setSelectedSort }) => {
+  return (
+    <Picker
+      selectedValue={selectedSort}
+      onValueChange={(itemValue, itemIndex) => setSelectedSort(itemValue)}
+    >
+      <Picker.Item label="Latest Repositories" value="latest" />
+      <Picker.Item label="Highest Rated Repositories" value="highest" />
+      <Picker.Item label="Lowest Rated Repositories" value="lowest" />
+    </Picker>
+  );
+};
+
+export const RepositoryListContainer = ({
+  repositories,
+  selectedSort,
+  setSelectedSort,
+}) => {
   let navigate = useNavigate();
 
   const repositoryNodes = repositories
@@ -29,14 +48,27 @@ export const RepositoryListContainer = ({ repositories }) => {
           <RepositoryItem key={item.id} item={item} />
         </Pressable>
       )}
+      ListHeaderComponent={() => (
+        <RepositorySorter
+          selectedSort={selectedSort}
+          setSelectedSort={setSelectedSort}
+        />
+      )}
     />
   );
 };
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [selectedSort, setSelectedSort] = useState("latest");
+  const { repositories } = useRepositories(selectedSort);
 
-  return <RepositoryListContainer repositories={repositories} />;
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      selectedSort={selectedSort}
+      setSelectedSort={setSelectedSort}
+    />
+  );
 };
 
 export default RepositoryList;
