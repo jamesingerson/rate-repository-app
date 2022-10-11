@@ -93,7 +93,7 @@ export class RepositoryListContainer extends React.Component {
   };
 
   render() {
-    const { repositories, onPress } = this.props;
+    const { repositories, onPress, onEndReach } = this.props;
 
     const repositoryNodes = repositories
       ? repositories.edges.map((edge) => edge.node)
@@ -109,6 +109,8 @@ export class RepositoryListContainer extends React.Component {
           </Pressable>
         )}
         ListHeaderComponent={this.renderHeader}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
@@ -117,11 +119,48 @@ export class RepositoryListContainer extends React.Component {
 const RepositoryList = () => {
   const [selectedSort, setSelectedSort] = useState("latest");
   const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedSearch] = useDebounce(searchQuery, 500, { maxWait: 500 });
-  const { repositories } = useRepositories(selectedSort, debouncedSearch);
+  const [debouncedSearch] = useDebounce(searchQuery, 500);
+
+  let variables;
+  switch (selectedSort) {
+    case "latest":
+      variables = {
+        orderBy: "CREATED_AT",
+        orderDirection: "DESC",
+      };
+      break;
+    case "highest":
+      variables = {
+        orderBy: "RATING_AVERAGE",
+        orderDirection: "DESC",
+      };
+      break;
+    case "lowest":
+      variables = {
+        orderBy: "RATING_AVERAGE",
+        orderDirection: "ASC",
+      };
+      break;
+    default:
+      variables = {
+        orderBy: "CREATED_AT",
+        orderDirection: "DESC",
+      };
+      break;
+  }
+
+  variables.searchKeyword = debouncedSearch;
+  variables.first = 8;
+
+  const { repositories, fetchMore } = useRepositories(variables);
   const onChangeSearch = (query) => setSearchQuery(query);
   let navigate = useNavigate();
   const onPress = (id) => navigate(`/repository/${id}`);
+
+  const onEndReach = () => {
+    console.log("at end");
+    fetchMore();
+  };
 
   return (
     <RepositoryListContainer
@@ -131,6 +170,7 @@ const RepositoryList = () => {
       searchQuery={searchQuery}
       onChangeSearch={onChangeSearch}
       onPress={onPress}
+      onEndReach={onEndReach}
     />
   );
 };

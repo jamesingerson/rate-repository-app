@@ -23,46 +23,39 @@ import { GET_REPOSITORIES } from "../graphql/queries";
 //   return { repositories, loading, refetch: fetchRepositories };
 // };
 
-const useRepositories = (selectedSort, debouncedSearch) => {
-  let sortParams;
-  switch (selectedSort) {
-    case "latest":
-      sortParams = {
-        orderBy: "CREATED_AT",
-        orderDirection: "DESC",
-        searchKeyword: debouncedSearch,
-      };
-      break;
-    case "highest":
-      sortParams = {
-        orderBy: "RATING_AVERAGE",
-        orderDirection: "DESC",
-        searchKeyword: debouncedSearch,
-      };
-      break;
-    case "lowest":
-      sortParams = {
-        orderBy: "RATING_AVERAGE",
-        orderDirection: "ASC",
-        searchKeyword: debouncedSearch,
-      };
-      break;
-    default:
-      sortParams = {
-        orderBy: "CREATED_AT",
-        orderDirection: "DESC",
-        searchKeyword: debouncedSearch,
-      };
-      break;
-  }
-
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: "cache-and-network",
-    variables: sortParams,
-  });
+const useRepositories = (variables) => {
+  const { data, error, loading, fetchMore, ...result } = useQuery(
+    GET_REPOSITORIES,
+    {
+      fetchPolicy: "cache-and-network",
+      variables,
+    }
+  );
   console.log(data);
   const repositories = data?.repositories;
-  return { repositories, error, loading };
+
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        ...variables,
+      },
+    });
+  };
+
+  return {
+    repositories,
+    fetchMore: handleFetchMore,
+    error,
+    loading,
+    ...result,
+  };
 };
 
 export default useRepositories;
