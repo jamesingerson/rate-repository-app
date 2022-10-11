@@ -10,7 +10,8 @@ const ItemSeparator = () => <View style={theme.separator} />;
 
 const RepositoryReviews = () => {
   const { id } = useParams();
-  const { repository } = useRepository(id);
+  const variables = { repoId: id, first: 5 };
+  const { repository, fetchMore } = useRepository(variables);
 
   if (!repository) return <Text>Loading Repository...</Text>;
 
@@ -18,6 +19,11 @@ const RepositoryReviews = () => {
   const reviews = repository.reviews
     ? repository.reviews.edges.map((edge) => edge.node)
     : [];
+
+  const onEndReach = () => {
+    console.log("at end");
+    fetchMore();
+  };
 
   return (
     <FlatList
@@ -28,6 +34,8 @@ const RepositoryReviews = () => {
       ListHeaderComponent={() => (
         <RepositoryItem item={repository} showUrlButton={true} />
       )}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
