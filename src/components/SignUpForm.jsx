@@ -69,11 +69,9 @@ export const SignUpForm = () => {
         username,
         password,
       });
-      console.log("data", createUser);
       if (createUser.id) {
         try {
           const { authenticate } = await signIn({ username, password });
-          console.log(authenticate);
           navigate("/", { replace: true });
         } catch (e) {
           console.log(e);

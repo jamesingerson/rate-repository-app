@@ -158,7 +158,6 @@ const RepositoryList = () => {
   const onPress = (id) => navigate(`/repository/${id}`);
 
   const onEndReach = () => {
-    console.log("at end");
     fetchMore();
   };
 

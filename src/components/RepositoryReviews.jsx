@@ -21,7 +21,6 @@ const RepositoryReviews = () => {
     : [];
 
   const onEndReach = () => {
-    console.log("at end");
     fetchMore();
   };
 

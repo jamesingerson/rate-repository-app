@@ -41,6 +41,7 @@ const AppBar = () => {
         {!!me && (
           <>
             <AppBarTab label={"Create a Review"} link={"/create-review"} />
+            <AppBarTab label={"My Reviews"} link={"/my-reviews"} />
             <Pressable onPress={signOut}>
               <Text style={theme.text}>Sign out</Text>
             </Pressable>

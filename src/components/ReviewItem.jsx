@@ -47,7 +47,9 @@ const ReviewItem = ({ review }) => {
       </View>
       <View style={styles.details}>
         <Text style={{ marginVertical: 3 }} fontWeight={"bold"}>
-          {review.user.username}
+          {review.repository
+            ? review.repository.fullName
+            : review.user.username}
         </Text>
         <Text style={{ marginVertical: 3 }} color={"textSecondary"}>
           {format(parseISO(review.createdAt), "dd.MM.yyyy")}

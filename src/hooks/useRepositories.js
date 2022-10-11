@@ -31,7 +31,6 @@ const useRepositories = (variables) => {
       variables,
     }
   );
-  console.log(data);
   const repositories = data?.repositories;
 
   const handleFetchMore = () => {
