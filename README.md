@@ -12,5 +12,5 @@ d. [Testing and extending our application](https://fullstackopen.com/en/part10/t
 ## Modules Certificate
 
 <p align="center">
-  <img width="100%" src="./certs/certificate-fullstack-reactnative.png" alt="Full Stack Open React Native Certificate">
+  <img width="100%" src="./cert/certificate-fullstack-reactnative.png" alt="Full Stack Open React Native Certificate">
 </p>
