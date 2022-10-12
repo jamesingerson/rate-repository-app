@@ -39,6 +39,18 @@ const theme = {
     textAlign: "center",
     fontWeight: "700",
     fontSize: 14,
+    paddingHorizontal: 40,
+  },
+  deleteButton: {
+    color: "white",
+    borderRadius: 5,
+    paddingVertical: 15,
+    margin: 10,
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 14,
+    paddingHorizontal: 40,
+    backgroundColor: "#d6394c",
   },
   separator: {
     height: 10,

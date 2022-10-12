@@ -7,7 +7,7 @@ import Text from "./Text";
 const ItemSeparator = () => <View style={theme.separator} />;
 
 const MyReviews = () => {
-  const { me } = useMe({ includeReviews: true });
+  const { me, refetch } = useMe({ includeReviews: true });
 
   if (!me) return <Text>Loading Reviews...</Text>;
 
@@ -16,7 +16,14 @@ const MyReviews = () => {
   return (
     <FlatList
       data={reviews}
-      renderItem={({ item }) => <ReviewItem key={item.id} review={item} />}
+      renderItem={({ item }) => (
+        <ReviewItem
+          key={item.id}
+          review={item}
+          myReviews={true}
+          refetch={refetch}
+        />
+      )}
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={ItemSeparator}
     />
